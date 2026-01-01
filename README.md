@@ -41,7 +41,9 @@ A powerful, local-first tool that analyzes GitHub profiles using **advanced metr
 ```bash
 # Clone the repository
 git clone https://github.com/aadhamashraf/GitHub-Profile-Analyzer.git
+
 cd GitHub-Profile-Analyzer
+
 # Start a simple local server (Recommended for API calls)
 python -m http.server 
 # OR
