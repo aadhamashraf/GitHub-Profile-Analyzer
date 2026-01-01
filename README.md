@@ -60,7 +60,7 @@ For the AI analysis to work, you need Ollama running locally.
 
 ---
 
-## **🎯 How It Works**
+## **How It Works**
 1.  **Search**: Enter any GitHub username.
 2.  **Scoring**: The app calculates a "Profile Score" (0-100) checking for:
     *   Bio/Location/Company presence
@@ -69,7 +69,7 @@ For the AI analysis to work, you need Ollama running locally.
 3.  **Streaming Analysis**: The app sends profile data to your local Ollama instance, which streams back a formatted analysis in real-time.
 
 
-## **📄 License**
+## **License**
 MIT License. Free to use and modify.
 
 ---
