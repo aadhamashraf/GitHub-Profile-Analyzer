@@ -1,30 +1,30 @@
-# **📊 GitHub Profile & AI Analyzer**
+# **GitHub Profile & AI Analyzer**
 
 A powerful, local-first tool that analyzes GitHub profiles using **advanced metrics** and **local AI** (Ollama) to provide deep insights, career advice, and project ideas.
 
 ![GitHub Analyzer Banner](https://via.placeholder.com/1200x400.png?text=GitHub+Profile+Analyzer+Dashboard)
 
-## **✨ Key Features**
+## **Key Features**
 
-### **🧠 AI-Powered Insights (Local & Free)**
+### **AI-Powered Insights (Local & Free)**
 *   **Developer Archetype**: Automatically classifies devs (e.g., *"Frontend Ninja"*, *"FullStack Architect"*).
 *   **Career Strengths**: Analyzes code style, consistency, and bio.
 *   **Project Ideas**: Generates personalized project suggestions based on tech stack.
 *   **Real-Time Streaming**: Watch the analysis generate live (via Phi/Mistral models).
 
-### **📈 Visual Analytics**
+### **Visual Analytics**
 *   **Profile Score**: A calculated 0-100 score based on bio, activity, and repo health.
 *   **Language Tech Stack**: Beautiful Chart.js doughnut chart of top languages.
 *   **Repository Diagnostics**: Identifies missing descriptions, licenses, and unmaintained repos.
 
-### **🔍 Deep Data Fetching**
+### **Deep Data Fetching**
 *   Fetches up to 100 repositories securely.
 *   Aggregates total stars, forks, and followers.
 *   Identifies "Top Repositories" by popularity.
 
 ---
 
-## **🛠️ Tech Stack**
+## **Tech Stack**
 *   **Frontend**: Vanilla HTML5, Modern CSS3 (Glassmorphism), JavaScript (ES6+).
 *   **Libraries**: `Chart.js` (Visuals), `FontAwesome` (Icons).
 *   **AI Engine**: [Ollama](https://ollama.ai) (Local LLM server).
@@ -32,7 +32,7 @@ A powerful, local-first tool that analyzes GitHub profiles using **advanced metr
 
 ---
 
-## **🚀 Quick Start Guide**
+## **Quick Start Guide**
 
 ### **Prerequisites**
 1.  **Git** installed.
