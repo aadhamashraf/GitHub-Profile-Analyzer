@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; connect-src 'self' https://api.github.com http://localhost:11434 https://cdn.jsdelivr.net; img-src 'self' https: data:;">
+    <title>GitHub Profile Analyzer</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Search Header -->
+        <header class="search-header">
+            <div class="logo">
+                <i class="fab fa-github"></i>
+                <span>Profile Analyzer</span>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-search"></i>
+                <input type="text" id="username" placeholder="Search GitHub username..."
+                    onkeypress="handleEnter(event)">
+                <button onclick="fetchProfile()">Search</button>
+            </div>
+        </header>
+
+        <!-- Main Content (Hidden initially) -->
+        <main id="main-content" class="hidden">
+
+            <div class="bento-grid">
+
+                <!-- 1. Profile Header (Span 2 cols) -->
+                <div class="b-card profile-header-card">
+                    <div class="ph-left">
+                        <a id="profile_link" href="#" target="_blank" title="View on GitHub">
+                            <img id="avatar" src="" alt="Avatar">
+                        </a>
+                        <div class="ph-info">
+                            <h2 id="name">Name</h2>
+                            <p id="login">@username</p>
+                            <p id="bio">Bio...</p>
+                            <div class="ph-meta">
+                                <span><i class="fas fa-map-marker-alt"></i> <span id="location">loc</span></span>
+                                <span><i class="far fa-building"></i> <span id="company">comp</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Score Card -->
+                <div class="b-card score-card">
+                    <h3>Profile Score</h3>
+                    <div class="score-circle">
+                        <svg viewBox="0 0 36 36" class="circular-chart">
+                            <path class="circle-bg"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path class="circle" id="score-ring" stroke-dasharray="0, 100"
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <text x="18" y="20.35" class="percentage" id="score-text">0</text>
+                        </svg>
+                    </div>
+                    <p id="score-msg" class="score-msg">Calculating...</p>
+                </div>
+
+                <!-- 3. Stats Row (Span full width) -->
+                <div class="b-card stats-bar">
+                    <div class="sb-item">
+                        <span class="sb-val" id="total-stars">0</span>
+                        <span class="sb-label">Total Stars</span>
+                    </div>
+                    <div class="sb-item">
+                        <span class="sb-val" id="total-forks">0</span>
+                        <span class="sb-label">Total Forks</span>
+                    </div>
+                    <div class="sb-item">
+                        <span class="sb-val" id="public_repos">0</span>
+                        <span class="sb-label">Repos</span>
+                    </div>
+                    <div class="sb-item">
+                        <span class="sb-val" id="followers">0</span>
+                        <span class="sb-label">Followers</span>
+                    </div>
+                </div>
+
+                <!-- 4. AI Analysis & Tags -->
+                <div class="b-card ai-summary-card">
+                    <h3><i class="fas fa-robot"></i> AI Analysis</h3>
+                    <div id="ai-response">Loading AI insights...</div>
+                </div>
+
+                <div class="b-card dev-type-card">
+                    <h3>Developer Type</h3>
+                    <div id="dev-type" class="highlight-box">Full Stack? Backend?</div>
+                </div>
+
+                <div class="b-card tags-card">
+                    <h3>Profile Tag</h3>
+                    <div id="profile-tag" class="highlight-box">Open Source Enthusiast</div>
+                </div>
+
+                <!-- 5. Improvement & Diagnostics -->
+                <div class="b-card diagnostics-card">
+                    <h3><i class="fas fa-stethoscope"></i> Diagnostics</h3>
+                    <ul id="diagnostics-list">
+                        <!-- Items injected via JS -->
+                    </ul>
+                </div>
+
+                <div class="b-card improvement-card">
+                    <h3><i class="fas fa-arrow-up"></i> Improvement Areas</h3>
+                    <ul id="improvements-list">
+                        <!-- Items injected via JS -->
+                    </ul>
+                </div>
+
+                <!-- 6. Project Ideas -->
+                <div class="b-card ideas-card">
+                    <h3><i class="fas fa-lightbulb"></i> Project Ideas</h3>
+                    <div id="project-ideas-container" class="ideas-grid">
+                        <!-- Cards injected via JS -->
+                    </div>
+                </div>
+
+                <!-- 7. Charts & Repos -->
+                <div class="b-card chart-card">
+                    <h3>Most Used Languages</h3>
+                    <div class="chart-container">
+                        <canvas id="languageChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="b-card repo-list-card">
+                    <h3>Top Repositories</h3>
+                    <div id="repo-container" class="repo-grid-mini">
+                        <!-- Repos injected here -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Welcome Placeholder -->
+        <div id="welcome-screen" class="welcome-screen">
+            <i class="fab fa-github-alt"></i>
+            <h1>GitHub Profile Analyzer</h1>
+            <p>Enter a username above to analyze their profile, repositories, and coding habits.</p>
+        </div>
+
+        <!-- Repo Details Modal -->
+        <div id="repo-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="modal-header">
+                    <h2 id="modal-repo-name">Repository Name</h2>
+                    <a id="modal-repo-link" href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+                    <button class="tab-btn" onclick="switchTab('commits')">Commits</button>
+                    <button class="tab-btn" onclick="switchTab('readme')">Readme</button>
+                    <button class="tab-btn ai-tab" onclick="switchTab('audit')"><i class="fas fa-robot"></i> AI
+                        Audit</button>
+                </div>
+
+                <div id="tab-overview" class="tab-content active">
+                    <div class="modal-stats">
+                        <div class="m-stat"><i class="fas fa-star"></i> <span id="m-stars"></span> Stars</div>
+                        <div class="m-stat"><i class="fas fa-code-branch"></i> <span id="m-forks"></span> Forks</div>
+                        <div class="m-stat"><i class="fas fa-eye"></i> <span id="m-watchers"></span> Watchers</div>
+                        <div class="m-stat"><i class="fas fa-exclamation-circle"></i> <span id="m-issues"></span> Open
+                            Issues</div>
+                    </div>
+                    <p id="m-desc" class="modal-desc"></p>
+                    <div class="modal-meta">
+                        <p><strong>Language:</strong> <span id="m-lang"></span></p>
+                        <p><strong>Created:</strong> <span id="m-created"></span></p>
+                        <p><strong>Last Updated:</strong> <span id="m-updated"></span></p>
+                    </div>
+                </div>
+
+                <div id="tab-commits" class="tab-content hidden">
+                    <ul id="commit-list" class="commit-list"></ul>
+                </div>
+
+                <div id="tab-readme" class="tab-content hidden">
+                    <div id="readme-content" class="markdown-body">Loading Readme...</div>
+                </div>
+
+                <div id="tab-audit" class="tab-content hidden">
+                    <div class="audit-intro">
+                        <p>Ask AI to analyze this specific repository structure, readme, and quality.</p>
+                        <button onclick="auditRepo()" class="audit-btn">Generate Full Audit</button>
+                    </div>
+                    <div id="audit-result" class="hidden"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Main JS Module -->
+    <script type="module" src="assets/js/main.js"></script>
+
+</body>
+
+</html>
