@@ -2,8 +2,6 @@
 
 A powerful, local-first tool that analyzes GitHub profiles using **advanced metrics** and **local AI** (Ollama) to provide deep insights, career advice, and project ideas.
 
-![GitHub Analyzer Banner](https://via.placeholder.com/1200x400.png?text=GitHub+Profile+Analyzer+Dashboard)
-
 ## **Key Features**
 
 ### **AI-Powered Insights (Local & Free)**
@@ -42,8 +40,8 @@ A powerful, local-first tool that analyzes GitHub profiles using **advanced metr
 ### **1. Install & Run**
 ```bash
 # Clone the repository
-#
-#
+git clone https://github.com/aadhamashraf/GitHub-Profile-Analyzer.git
+cd GitHub-Profile-Analyzer
 # Start a simple local server (Recommended for API calls)
 python -m http.server 
 # OR
